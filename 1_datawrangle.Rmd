@@ -1,0 +1,94 @@
+---
+title: "1_datawrangle"
+author: "Magena Marzonie"
+date: "23/02/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+#This is a tutorial from DartR vignette to see how the functions work 
+
+#load libraries
+```{r}
+library(dartR)
+```
+
+
+```{r}
+# Rename the test genlight object to gl, something simple
+#this is just the test dataset
+gl <- testset.gl
+gl
+```
+
+In the body of this individual x locus matrix are the SNP data, coded as 0 for homozygous reference state, 1 for heterozygous,
+and 2 for homozygous alternate (or SNP) state. You can access these data by converting to a standard
+matrix using: 
+```{r}
+m <- as.matrix(gl)
+```
+
+
+Displays SNP states for 5 rows [individuals] and 3 columns [loci]
+```{r}
+as.matrix(gl)[1:5,1:3]
+```
+
+
+`The information in the genlight object can be accessed using the following adegenet accessors:`
+• nInd(gl): | returns the number of individuals in the genlight object.
+• nLoc(gl): returns the number of loci.
+• nPop(gl): returns the number of populations to which the individuals are assigned.
+• indNames(gl): returns or sets labels for individuals.
+• locNames(gl): returns or sets labels for loci.
+• alleles(gl): returns or sets allelic states of each locus for each individual (e.g. “A/T”).
+• ploidy(gl): returns or sets the ploidy of the individuals (normally diploid or 2).
+• pop(gl): returns or sets the population to which each individual belongs. Try also levels(pop(gl)) for
+a list of unique population names.
+• NA.posi: returns the loci with missing values, that is, loci for which a sequence tag failed to amplify
+for each individual.
+• chr: returns or sets the chromosome for each locus.
+• position: returns or sets the position of each SNP in the sequence tag of each locus.
+• other(gl): returns of sets miscellaneous information stored as a list.
+
+```{r}
+
+```
+
+`Some simple operations such as computing allele frequencies or diagnosing missing values can b used with package {adegenet}`
+• glSum: counts the frequency of the alternate allele for each locus.
+• glNA: counts the number of missing values for each locus.
+• glMean: computes the relative frequency (a proportion in the range 0-1) of the second allele for each
+locus.
+• glVar: computes the variance of the allele frequency distribution for each locus.
+• glDotProd: computes the dot products between all pairs of individuals, with centering and scaling.
+in each case taking advantage of the 0, 1, 2 coding of the SNP states for each locus - the coding essentially
+corresponds to the frequency of the alternate allele.
+
+
+`A bit more metadata about our files` 
+SNP_1row.csv contains the SNP genotypes in one row format
+• SNP_2row.csv contains the SNP genotypes in two row format
+• SilicoDArT.csv contains the presence(1)/absence(0) of the sequence tag at a locus for each individual
+(analogous to AFLPs)
+• metadata.csv contains a report of the success of the sequencing and an explanation of the locus
+metadata provided in the above spreadsheets.
+
+
+To load your own data in, you need the csv file provided by DArT (e.g. mydata.csv) and (optional) an
+individual metadata file (e.g. my.metadata.csv).
+```{r}
+#okay let's actually read in our data
+gl <- gl.read.dart(filename="Data/Report_DAc22-6709_SilicoDArT_1.csv", ind.metafile = "my.metadata.csv")
+dartfile <- system.file("extdata","testset_SNPs_2Row.csv", package="dartR")
+```
+
+
+```{r}
+
+```
+
+
